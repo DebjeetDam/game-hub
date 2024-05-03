@@ -13,11 +13,8 @@ export interface GameQuery {
 }
 
 function App() {
-  // const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatfrom, setSelectedPlatform] = useState<Platform | null>(
-    null
-  );
+  //Query object patern for cleaner code
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   return (
     <Grid
@@ -36,23 +33,22 @@ function App() {
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
           <GenreList
-            onSelectGenre={(genre: Genre) => setSelectedGenre(genre)}
-            selectedGenre={selectedGenre}
+            onSelectGenre={(genre: Genre) =>
+              setGameQuery({ ...gameQuery, genre })
+            }
+            selectedGenre={gameQuery.genre}
           />
         </GridItem>
       </Show>
 
       <GridItem area="main">
         <PlatformSelector
-          selectedPlatform={selectedPlatfrom}
+          selectedPlatform={gameQuery.platform}
           onSelectPlatform={(platform: Platform) =>
-            setSelectedPlatform(platform)
+            setGameQuery({ ...gameQuery, platform })
           }
         />
-        <GameGrid
-          selectedGenre={selectedGenre}
-          selectedPlatform={selectedPlatfrom}
-        />
+        <GameGrid gameQuery={gameQuery} />
       </GridItem>
     </Grid>
   );
