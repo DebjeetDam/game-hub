@@ -10,6 +10,7 @@ export interface Game {
   // parent_platforms:[{platform: {id: 1, name: "PC", slug: "pc"}},…]
   parent_platforms: { platform: Platform }[];
   metacritic: number;
+  rating_top: number;
 }
 
 const useGames = (gameQuery: GameQuery) =>
